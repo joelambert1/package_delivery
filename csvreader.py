@@ -2,7 +2,7 @@ import csv
 import distance
 
 
-distance_file = 'input_data/Distance csv.csv'
+distance_file = 'input_data/Distance.csv'
 package_file = 'input_data/Package File.csv'
 
 
