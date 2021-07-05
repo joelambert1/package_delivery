@@ -69,9 +69,17 @@ def deliver_packages(truck, distance_list, time, stop_time):
         display_time = format_time(time)
         # print("time is now:" + str(time), "stop_time:", str(stop_time))
         if time[0] > stop_time[0]:
-            user_choices(p_table, distance_list)
+            if truck.truck_num == 1:
+                print("truck == 1, running truck 2 packages?")
+                return
+            else:
+                user_choices(p_table, distance_list)
         elif time[0] == stop_time[0] and time[1] >= stop_time[1]:
-            user_choices(p_table, distance_list)
+            if truck.truck_num == 1:
+                print("truck == 1, running truck 2 packages?")
+                return
+            else:
+                user_choices(p_table, distance_list)
 
 
         # remove package/s from package_list (loaded in truck), update status to delivered
@@ -144,7 +152,7 @@ def user_choices(p_table, distance_list):
                 elif user_choice == 2:
                     key = int(input("Enter key: "))
                     if p_table.search(key):
-                        print(p_table.search(key).print_package())
+                        p_table.search(key).print_package()
                     else:
                         print("package not found")
                 elif user_choice == 3:
@@ -193,9 +201,9 @@ def morning_shift(p_table, distance_list, stop_time):
             package = p_table.search(i)
             special = package.special
             deadline = package.deadline
-            if special == "none" and len(p_truck1) < 16 or deadline[0] == '1' and "Delayed" not in special and len(p_truck1) < 16:
+            if deadline[0] == '1' and "Delayed" not in special and len(p_truck1) < 16 or "delivered w" in special and len(p_truck1) < 16:
                 p_truck1.append(package)
-            elif "Delayed" in special and deadline[0] == 'E' or "Wrong add" in special or len(p_truck2) >= 16 or "delivered w" in special:
+            elif deadline[0] == 'E' and len(p_truck3) < 15 and "truck 2" not in special or "Wrong add" in special and len(p_truck3) < 16:
                 p_truck3.append(package)
             else:
                 p_truck2.append(package)
