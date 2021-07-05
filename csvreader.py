@@ -7,7 +7,7 @@ package_file = 'input_data/Package File.csv'
 
 
 def read_package_file(packages):
-    p_status = "At Hub"
+    p_status = "not loaded"
     p_ids = []
     p_special = []
     p_addresses = []

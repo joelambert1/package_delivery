@@ -13,6 +13,7 @@ def get_hash(key):
 class HashTable:
     def __init__(self, size=53):
         self.table = []
+        self.size = size
         for i in range(size):
             self.table.append([])
 
@@ -29,6 +30,11 @@ class HashTable:
                     return i
         else:
             return None
+
+    def clear(self):
+        for i in range(0, self.size):
+            if self.search(i):
+                self.remove(i)
 
     def remove(self, p_id):
         key = get_hash(p_id)
