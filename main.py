@@ -16,7 +16,8 @@ def load_truck(truck, packages, time):
     for i in range(len(packages)):
         # print(packages[i].special)
         package_list.append(packages[i])
-        package_list[i].status = "At hub by " + format_time(time)
+        if "Delayed" not in packages[i].special:
+            package_list[i].status = "At hub until " + format_time(time)
         package_list[i].initialize_address_index(distance_list)
         package_index_list.append(package_list[i].address_index)
         package_index_list.sort()
@@ -44,7 +45,8 @@ def deliver_packages(truck, distance_list, time, stop_time):
     del_list = []
     current_location = 0
     for i in range(len(package_list)):
-        package_list[i].status = "En route at "  + format_time(time) + " on truck " + str(truck.truck_num)
+        if truck.truck_num == 1 or stop_time[0] > 9 or stop_time[0] == 9 and stop_time[1] > 4:
+            package_list[i].status = "En route at " + format_time(time) + " on truck " + str(truck.truck_num)
         package_index_list.append(package_list[i].address_index)
     package_index_list.sort()
 
@@ -80,7 +82,6 @@ def deliver_packages(truck, distance_list, time, stop_time):
                 return
             else:
                 user_choices(p_table, distance_list)
-
 
         # remove package/s from package_list (loaded in truck), update status to delivered
         del_list.clear()
