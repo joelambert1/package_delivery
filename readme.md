@@ -12,3 +12,13 @@ Assumptions:
      (410 S State St, 84111)
 •   The distances provided in the Distance Table are equal regardless of the direction traveled.
 
+![Screenshot (3006)](https://user-images.githubusercontent.com/23101063/124603608-1bbf7880-de38-11eb-91c9-55a6e31b8c45.png)
+
+![Screenshot (3007)](https://user-images.githubusercontent.com/23101063/124603626-1f52ff80-de38-11eb-992e-85f224b4e4b9.png)
+
+![Screenshot (3008)](https://user-images.githubusercontent.com/23101063/124603638-21b55980-de38-11eb-9dea-e4d009ccaca9.png)
+
+![Screenshot (3009)](https://user-images.githubusercontent.com/23101063/124603648-2417b380-de38-11eb-9270-9deeb8f294f0.png)
+
+![Screenshot (3010)](https://user-images.githubusercontent.com/23101063/124603655-25e17700-de38-11eb-9ad6-71202fe465aa.png)
+
