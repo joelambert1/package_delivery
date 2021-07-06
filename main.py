@@ -6,15 +6,14 @@ import math
 def format_adjacency_list(obj_list):
     for i in range(len(obj_list)-1):
         for j in range(i + 1, len(obj_list)):
-            temp_list = obj_list[j].get_distances()[i]
-            obj_list[i].add_single_distance(temp_list)
+            temp_list = obj_list[j].distances[i]
+            obj_list[i].distances.append(temp_list)
 
-def load_truck(truck, packages, time):
+def load_truck(truck, packages, time, distance_list):
     # choose what gets loaded and return what doesn't
     package_list = []
     package_index_list = []
     for i in range(len(packages)):
-        # print(packages[i].special)
         package_list.append(packages[i])
         if "Delayed" not in packages[i].special:
             package_list[i].status = "At hub until " + format_time(time)
@@ -39,8 +38,7 @@ def unformat_time(time):
     return u_time
 
 def deliver_packages(truck, distance_list, time, stop_time):
-    package_list = truck.get_packages()
-    # print("packages#", len(package_list))
+    package_list = truck.packages
     package_index_list = []
     del_list = []
     current_location = 0
@@ -55,7 +53,7 @@ def deliver_packages(truck, distance_list, time, stop_time):
     for x in range(len(package_list)):
         prev_location = current_location
         current_location = next_stop(package_index_list, distance_list, current_location)
-        add_mileage = distance_list[prev_location].get_distances()[current_location]
+        add_mileage = distance_list[prev_location].distances[current_location]
         truck.daily_mileage += add_mileage
         time[1] += add_mileage/.3
         round_time = time[1] - math.floor(time[1])
@@ -63,22 +61,18 @@ def deliver_packages(truck, distance_list, time, stop_time):
             time[1] = math.floor(time[1])
         else:
             time[1] = math.ceil(time[1])
-        # print("mileage travelled: ", add_mileage, "time added:", time[1])
 
         while time[1] >= 60:
             time[0] += 1
             time[1] -= 60
         display_time = format_time(time)
-        # print("time is now:" + str(time), "stop_time:", str(stop_time))
         if time[0] > stop_time[0]:
             if truck.truck_num == 1:
-                print("truck == 1, running truck 2 packages?")
                 return
             else:
                 user_choices(p_table, distance_list)
         elif time[0] == stop_time[0] and time[1] >= stop_time[1]:
             if truck.truck_num == 1:
-                print("truck == 1, running truck 2 packages?")
                 return
             else:
                 user_choices(p_table, distance_list)
@@ -90,16 +84,13 @@ def deliver_packages(truck, distance_list, time, stop_time):
         package_list.clear()
         for i in range(len(del_list)):
             if distance_list[current_location].address == del_list[i].address:
-                # print("dropping off all packages at:", del_list[i].p_id, del_list[i].address)
                 del_list[i].status = " delivered at " + display_time + " By truck " + str(truck.truck_num)
             else:
                 package_list.append(del_list[i])
 
-        # print("truck mileage now:", truck.daily_mileage)
         if len(package_list) == 0:
             # return to hub
-            truck.daily_mileage += distance_list[current_location].get_distances()[0]
-            # print("truck mileage now:", truck.daily_mileage)
+            truck.daily_mileage += distance_list[current_location].distances[0]
             return time
 
 
@@ -117,7 +108,6 @@ def next_stop(package_index_list, distance_list, current_location):
     for i in temp_index_list:
         if i != smallest_index:
             package_index_list.append(i)
-    # print("next stop is:", smallest, "miles")
     return smallest_index
 
 def user_display(table, distance_list):
@@ -133,7 +123,6 @@ def user_display(table, distance_list):
         except ValueError:
             print("Error, please enter numbers only and make sure to include \":\"")
     stop_time = unformat_time(stop_time)
-    # print("unformatted stop time:", stop_time)
 
     morning_shift(table, distance_list, stop_time)
 
@@ -172,14 +161,12 @@ def print_package_range(p_table):
     user_range = user_range.split("-")
     low_range = int(user_range[0])
     hi_range = int(user_range[1])
-    # print(type(low_range), low_range, "through", hi_range)
     if low_range < 1:
         low_range = 1
     if hi_range > 40:
         hi_range = 40
     if low_range > 40 or hi_range < low_range:
         return
-    # print("type:", type(low_range), low_range, type(hi_range), hi_range)
     for i in range(low_range, hi_range + 1):
         if p_table.search(i):
             p_table.search(i).print_package()
@@ -220,8 +207,8 @@ def morning_shift(p_table, distance_list, stop_time):
     time_truck1 = [8, 0]
     time_truck2 = [9, 5]
 
-    load_truck(truck1, p_truck1, time_truck1)
-    load_truck(truck2, p_truck2, time_truck2)
+    load_truck(truck1, p_truck1, time_truck1, distance_list)
+    load_truck(truck2, p_truck2, time_truck2, distance_list)
     deliver_packages(truck1, distance_list, time_truck1, stop_time)
     deliver_packages(truck2, distance_list, time_truck2, stop_time)
 
@@ -239,7 +226,7 @@ def morning_shift(p_table, distance_list, stop_time):
     fix_wrong_address(p_table)
 
     # load final truck
-    load_truck(truck3, p_truck3, time)
+    load_truck(truck3, p_truck3, time, distance_list)
     deliver_packages(truck3, distance_list, time, stop_time)
 
     print("All packages delivered by:", format_time(time))

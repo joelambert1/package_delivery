@@ -1,9 +1,8 @@
 import package
 
 # A custom hash table is a part of the project requirements
-# going to make hash table around 1.3 times larger than the # of packages = 53
+# Making hash table around 1.3 times larger than the # of packages = 53
 # accounts for collisions by appending to a list if required. However, collisions are minimal
-# and should contain all package data and this hash works pretty well in this case
 
 
 def get_hash(key):

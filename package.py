@@ -25,13 +25,8 @@ class Package:
               blue + "\n\t\tstatus:" + endc, self.status, "\n\t\tdeadline:",
               underline + self.deadline + endc, "mass:", self.mass, "special:", self.special)
 
-    def get_address(self):
-        return self.address
-
-    def update_status(self, string):
-        self.status = string
 
     def initialize_address_index(self, distance_list):
         for i in range(len(distance_list)):
-            if self.address == distance_list[i].get_address():
+            if self.address == distance_list[i].address:
                 self.address_index = i

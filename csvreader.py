@@ -69,7 +69,7 @@ def get_distances(distance_csv_list, address, name_list, distance_list):
             temp_list[i].append(float(j))
         distance_obj = distance.Distance()
         distance_obj.add_address(address[i])
-        distance_obj.add_distances(temp_list[i])
+        distance_obj.distances = temp_list[i]
         distance_obj.add_location(name_list[i])
         distance_list.append(distance_obj)
     return distance_list

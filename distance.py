@@ -15,18 +15,6 @@ class Distance:
         zipcode = int(address.split('(')[1].replace(')', ''))
         self.address = address.split('(')[0]
 
-    def get_address(self):
-        return self.address
-
-    def add_distances(self, distances):
-        self.distances = distances
-
-    def add_single_distance(self, distance):
-        self.distances.append(distance)
-
-    def get_distances(self):
-        return self.distances
-
     def print_all(self):
         print("location:", self.location, ",", self.address, ",", self.distances)
 
