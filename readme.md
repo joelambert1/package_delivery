@@ -1,6 +1,6 @@
 This is a mock package delivery program using a version of
 'nearest neighbor' greedy algorithm.
-This program reads a csv file containing distance data and a csv file containing package data and figures out how to deliver them
+This program reads a csv file containing distance data, a csv file containing package data and figures out how to deliver them
 
 
 Assumptions:
