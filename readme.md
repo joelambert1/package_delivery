@@ -20,8 +20,6 @@ Assumptions:
 
 •   The distances provided in the Distance Table are equal regardless of the direction traveled.
 
-![Screenshot (3011)](https://user-images.githubusercontent.com/23101063/124604690-2dede680-de39-11eb-81d3-589132d06f99.png)
-
 ![Screenshot (3012)](https://user-images.githubusercontent.com/23101063/124604703-321a0400-de39-11eb-89d0-6bd259ffc52e.png)
 
 ![Screenshot (3008)](https://user-images.githubusercontent.com/23101063/124603638-21b55980-de38-11eb-9dea-e4d009ccaca9.png)
